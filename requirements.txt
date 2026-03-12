@@ -1,0 +1,6 @@
+streamlit
+spacy
+rdflib
+ollama
+pandas
+python-dotenv
