@@ -1,45 +1,56 @@
-POC : Générateur de Graphe de Connaissances RDF
-Ce projet est une preuve de concept (POC) permettant de transformer un texte en langage naturel en un graphe de connaissances RDF structuré. Il combine des approches symboliques (NLP), neuronales (LLM) et une validation humaine interactive.
+# POC : Générateur de Graphe de Connaissances RDF
 
-- Fonctionnalités
-Extraction d'entités nommées (NER) avec support de vocabulaire contrôlé.
-Extraction de relations.
-Consolidation sémantique par LLM.
-Calcul de confiance hybride (Syntaxique + LLM).
-Validation humaine interactive.
-Export au format RDF (Turtle).
+> **Projet de Preuve de Concept (POC)** : Transformation automatique de textes en langage naturel vers un graphe de connaissances RDF structuré.
 
-- Installation
-Prérequis : Python 3.10+ et Ollama.
-Cloner le dépôt :
+---
+
+## Objectifs
+
+Ce projet implémente un pipeline hybride combinant :
+
+1.  **Approche Symbolique** : Analyse syntaxique et extraction d'entités (SpaCy).
+2.  **Approche Neuronale** : Consolidation sémantique via LLM (Ollama/Llama3).
+3.  **Validation Humaine** : Interface interactive pour valider les résultats.
+
+---
+
+## Installation et Lancement
+
+### 1. Prérequis
+
+Assurez-vous d'avoir installé sur votre machine :
+
+- Python 3.10 ou supérieur.
+- [Ollama](https://ollama.com/) pour le modèle IA.
+
+### 2. Installation des dépendances
+
+Clonez le dépôt et installez les librairies nécessaires :
+
+```bash
 git clone https://github.com/tahirimou3ad/poc-rdf-generator
 cd poc-rdf-generator
-Environnement virtuel :
+
+# Création de l'environnement virtuel
 python3 -m venv venv
 source venv/bin/activate
-Dépendances Python :
+
+# Installation des dépendances Python
 pip install -r requirements.txt
+
+# Téléchargement du modèle linguistique SpaCy
 python -m spacy download fr_core_news_lg
-Modèle IA (Llama3 ou Phi3) :
+
+# Téléchargement du modèle IA (Llama3 ou Phi3)
 ollama pull llama3
+```
 
-- Utilisation
-Lancer le serveur Ollama (si non lancé) :
+### 3. Lancement de l'application
+
+```bash
+# Lancer le serveur IA (si non actif)
 ollama serve &
-Lancer l'application :
+
+# Lancer l'interface web
 streamlit run app.py
-Ouvrir l'interface dans votre navigateur (généralement http://localhost:8501).
-
-- Structure du Projet
-app.py : Point d'entrée principal et interface Streamlit.
-nlp_processor.py : Module de prétraitement et NER (SpaCy).
-relation_extractor.py : Module d'extraction de relations (Syntaxe + LLM).
-llm_service.py : Interface avec l'API Ollama.
-rdf_builder.py : Génération du graphe RDF.
-config.py : Configuration globale (seuils, modèles).
-
--  Logique de Calcul
-La confiance finale d'une relation est calculée ainsi :C_combined = (0.4 * C_syntax) + (0.6 * C_llm)
-
-C_syntax : Basé sur la proximité textuelle.
-C_llm : Basé sur la cohérence de la réponse du LLM.
+```
